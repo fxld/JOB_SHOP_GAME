@@ -1,38 +1,41 @@
 #include"define.h"
-DATA **data;//ÊäÈëÊı¾İ(Element*Machine)
-GENE island[2][MAXnum];//2¸öµºÓì
-PROCESS **Process;//Ê¹ÓÃ¶şÎ¬Êı×é´æ·Å½âÂë³öµÄÉè¼ÆÍ¼(Element*Machine)
-int Element;//Ğè¼Ó¹¤µÄ¹¤¼ş×ÜÊı
-int Machine;//»úÆ÷×ÜÊı
-int Job;//×Ü²Ù×÷Êı£¬Ò²¾ÍÊÇ»ùÒòµÄÊµ¼Ê³¤¶È
-int Sum_fitness[2] = { 0 };//µºÓìÖĞËùÓĞ¸öÌåÊÊÓ¦¶ÈµÄºÍ
-int age;//µ±Ç°½ø»¯´úÊı
-int main()
+
+DATA **data;//è¾“å…¥æ•°æ®data[Element][Machine]
+GENE island[ISLAND][MAXnum];//2ä¸ªå²›å±¿
+PROCESS **Process;//ä½¿ç”¨äºŒç»´æ•°ç»„å­˜æ”¾è§£ç å‡ºçš„è®¾è®¡å›¾Process[machine][å·¥åº]
+int after_select[ISLAND][MAXnum];//é€‰æ‹©ååŸºå› çš„æ˜ å°„after_select[island][index of the selected],å½“after_selected[i][j]=-1æ—¶,è¡¨ç¤ºjä¹‹åå·²ç»æ²¡æœ‰è¢«é€‰æ‹©å‡ºçš„ä¸ªä½“
+int Element;//éœ€åŠ å·¥çš„å·¥ä»¶æ€»æ•°
+int Machine;//æœºå™¨æ€»æ•°
+int Job;//æ€»æ“ä½œæ•°ï¼Œä¹Ÿå°±æ˜¯åŸºå› çš„å®é™…é•¿åº¦
+int age;//å½“å‰è¿›åŒ–ä»£æ•°
+double Sum_fitness[2] = { 0 };//å²›å±¿ä¸­æ‰€æœ‰ä¸ªä½“é€‚åº”åº¦çš„å’Œ
+
+int main(void)
 {
-	input();//ÊäÈë
+	input();//è¾“å…¥
 
-	code();//Éú³É³õÊ¼ÖÖÈº
+	code();//ç”Ÿæˆåˆå§‹ç§ç¾¤
 
-	for (int i = 0; i < 2; i++)//½âÂë¼ÆËãÊÊÓ¦¶ÈandÅÅĞò
+	for (int i = 0; i < 2; i++)//è§£ç è®¡ç®—é€‚åº”åº¦andæ’åº
 	{
 		for (int j = 0; j < MAXnum; i++)
 		{
-			decode(&island[i][j]);//½âÂë¼ÆËãÊÊÓ¦¶È
+			decode(&island[i][j]);//è§£ç è®¡ç®—é€‚åº”åº¦
 			Sum_fitness[i] += island[i][j].fitness;
 		}
-		GENE *temporary=NULL;//ÁÙÊ±¿Õ¼ä
+		GENE *temporary=NULL;//ä¸´æ—¶ç©ºé—´
 		temporary = (GENE*)malloc(MAXnum * sizeof(GENE));
-		sort(0, MAXnum, island[i], temporary);//ÅÅĞò
+		sort(0, MAXnum, island[i], temporary);//æ’åº
 		free(temporary);
 	}
 	srand((unsigned int)time(NULL));
-	for (age = 0; age < MAXage; age++)//½ø»¯
+	for (age = 0; age < MAXage; age++)//è¿›åŒ–
 	{
-		//µ÷ÓÃÅĞ¶Ïº¯ÊıÅĞ¶ÏÊÇ·ñ´ï³ÉÌø³öÑ­»·µÄÌõ¼ş
+		//è°ƒç”¨åˆ¤æ–­å‡½æ•°åˆ¤æ–­æ˜¯å¦è¾¾æˆè·³å‡ºå¾ªç¯çš„æ¡ä»¶
 
 	}
 
-	if (island[0][0].makespan < island[1][0].makespan)//Ñ¡Ôñ³öµ±Ç°×îÓÅ½â
+	if (island[0][0].makespan < island[1][0].makespan)//é€‰æ‹©å‡ºå½“å‰æœ€ä¼˜è§£
 	{
 		decode(&island[0][0]);
 	}
@@ -40,7 +43,7 @@ int main()
 	{
 		decode(&island[1][0]);
 	}
-	/*´ËÊ±ProcessÖĞ´æ·ÅµÄÊÇ×îÓÅ½âµÄ½âÎöÍ¼*/
+	/*æ­¤æ—¶Processä¸­å­˜æ”¾çš„æ˜¯æœ€ä¼˜è§£çš„è§£æå›¾*/
 	output();
 
 

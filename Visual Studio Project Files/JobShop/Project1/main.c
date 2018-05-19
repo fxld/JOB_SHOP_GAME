@@ -16,7 +16,7 @@ int main(void)
 
 	code();//生成初始种群
 
-	for (int i = 0; i < 2; i++)//解码计算适应度and排序
+	for (int i = 0; i < ISLAND; i++)//解码计算适应度and排序
 	{
 		for (int j = 0; j < MAXnum; i++)
 		{

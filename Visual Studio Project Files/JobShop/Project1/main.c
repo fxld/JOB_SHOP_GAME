@@ -3,7 +3,7 @@
 DATA **data;//输入数据data[Element][Machine]
 GENE island[ISLAND][MAXnum];//2个岛屿
 PROCESS **Process;//使用二维数组存放解码出的设计图Process[machine][工序]
-int after_select[ISLAND][MAXnum];//选择后基因的映射after_select[island][index of the selected],当after_selected[i][j]=-1时,表示j之后已经没有被选择出的个体
+int after_select[ISLAND][MAXnum];//选择后基因的映射after_select[island][index of the selected],当after_selected[i][j]=-1时,表示已经进行过基因操作或是未选择
 int Element;//需加工的工件总数
 int Machine;//机器总数
 int Job;//总操作数，也就是基因的实际长度

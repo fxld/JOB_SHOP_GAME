@@ -7,37 +7,40 @@
 #include<stdbool.h>
 
 
-#define MAXlen 1000//È¾É«Ìå³¤¶È
-#define MAXnum 1000//ÖÖÈºÈİÁ¿
-#define MOVEage 30//ÒÆÃñ¼ä¸ô
-#define MAXage 1000
+#define MAXlen 1000	//æŸ“è‰²ä½“é•¿åº¦
+#define MAXnum 1000	//ç§ç¾¤å®¹é‡
+#define MOVEage 30	//ç§»æ°‘é—´éš”
+#define MAXage 1000	//æœ€å¤§ä»£æ•°
+#define ISLAND 2	//å²›å±¿æ•°é‡
+#define MUTATION 0.1	//çªå˜æ¦‚ç‡
+#define CROSS 0.5	//äº¤å‰æ¦‚ç‡
 
-
-typedef struct //´æ·ÅÊäÈëµÄÊı¾İ
+typedef struct //å­˜æ”¾è¾“å…¥çš„æ•°æ®
 {
-	int line;//»úÆ÷ºÅ
-	int time;//¼Ó¹¤Ê±¼ä
+	int line;//æœºå™¨å·
+	int time;//åŠ å·¥æ—¶é—´
 }DATA;
 
-typedef struct //µ¥¸öÈ¾É«Ìå
+typedef struct //å•ä¸ªæŸ“è‰²ä½“
 {
-	int gene[MAXlen];//»ùÒò
-	int makespan;//×î³¤Íê¹¤Ê±¼ä
-	double fitness;//ÊÊÓ¦¶È
+	int gene[MAXlen];//åŸºå› 
+	int makespan;//æœ€é•¿å®Œå·¥æ—¶é—´
+	double fitness;//é€‚åº”åº¦
 }GENE;
 
-typedef struct//½âÂë³öµÄµ¥¸ö»úÆ÷ÉÏµÄµ¥¸ö¹¤Ğò
+typedef struct//è§£ç å‡ºçš„å•ä¸ªæœºå™¨ä¸Šçš„å•ä¸ªå·¥åº
 {
-	int component;//¹¤¼şºÅ
-	int start;//¿ªÊ¼Ê±¼ä
-	int end;//Íê³ÉÊ±¼ä
+	int component;//å·¥ä»¶å·
+	int start;//å¼€å§‹æ—¶é—´
+	int end;//å®Œæˆæ—¶é—´
 }PROCESS;
 
 
-/************************ÉùÃ÷È«¾Ö±äÁ¿***********************/
-extern DATA **data;//ÊäÈëÊı¾İ
-extern GENE island[2][MAXnum];//µºÓì
-extern PROCESS **Process;//Ê¹ÓÃ¶şÎ¬Êı×é´æ·Å½âÂë³öµÄÉè¼ÆÍ¼
-extern int Element;//Ğè¼Ó¹¤µÄ¹¤¼ş×ÜÊı
-extern int Machine;//»úÆ÷×ÜÊı
-extern int Job;//×Ü²Ù×÷Êı
+/************************å£°æ˜å…¨å±€å˜é‡***********************/
+extern DATA **data;//è¾“å…¥æ•°æ®
+extern GENE island[2][MAXnum];//å²›å±¿
+extern PROCESS **Process;//ä½¿ç”¨äºŒç»´æ•°ç»„å­˜æ”¾è§£ç å‡ºçš„è®¾è®¡å›¾
+extern int Element;//éœ€åŠ å·¥çš„å·¥ä»¶æ€»æ•°
+extern int Machine;//æœºå™¨æ€»æ•°
+extern int Job;//æ€»æ“ä½œæ•°
+extern int after_select[ISLAND][MAXnum];//é€‰æ‹©åçš„åŸºå› æ˜ å°„

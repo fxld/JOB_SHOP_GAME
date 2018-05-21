@@ -39,11 +39,14 @@ typedef struct//解码出的单个机器上的单个工序
 /************************声明全局变量***********************/
 extern DATA **data;//输入数据
 extern GENE island[2][MAXnum];//岛屿
-extern PROCESS **Process;//使用二维数组存放解码出的设计图
+extern PROCESS ***Process;//使用二维数组存放解码出的设计图
 extern int Element;//需加工的工件总数
 extern int Machine;//机器总数
 extern int Job;//总操作数
+extern int MutantRange = (int)(RAND_MAX*MUTATION);//发生突变的区间
+extern int CrossoverRange = (int)(RAND_MAX*CROSS);//发生交叉的区间
 extern int after_select[ISLAND][MAXnum];//选择后的基因映射
+extern double Sum_fitness[2] = { 0 };//岛屿中所有个体适应度的和
 
 /************************FOR DEBUG***********************
 *	extern int mutanted[ISLAND][MAXnum];//表示经过突变的个体mutanted[island][index of the mutanted]

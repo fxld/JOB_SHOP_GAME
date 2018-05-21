@@ -42,7 +42,7 @@ int main(void)
 	input();//输入
 
 	code();//生成初始种群
-
+	GENE *temporary = NULL;//临时空间
 	for (int i = 0; i < ISLAND; i++)//解码计算适应度and排序
 	{
 		for (int j = 0; j < MAXnum; i++)
@@ -50,11 +50,12 @@ int main(void)
 			decode(&island[i][j]);//解码计算适应度
 			Sum_fitness[i] += island[i][j].fitness;
 		}
-		GENE *temporary = NULL;//临时空间
+		
 		temporary = (GENE*)malloc(MAXnum * sizeof(GENE));
 		sort(0, MAXnum, island[i], temporary);//排序
-		free(temporary);
 	}
+	free(temporary);
+	temporary = NULL;
 	srand((unsigned int)time(NULL));
 	for (age = 0; age < MAXage; age++)//进化
 	{

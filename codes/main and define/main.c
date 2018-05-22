@@ -2,15 +2,15 @@
 
 DATA **data;//输入数据data[Element][Machine]
 GENE island[ISLAND][MAXnum];//2个岛屿
-PROCESS ***Process;//使用四维数组存放解码出的设计图Process[island][gene][machine][工序]
+PROCESS **Process;//使用四维数组存放解码出的设计图Process[island][gene][machine][工序]
 int after_select[ISLAND][MAXnum];//选择后基因的映射after_select[island][index of the selected],当after_selected[i][j]=-1时,表示已经进行过基因操作或是未选择
 int Element;//需加工的工件总数
 int Machine;//机器总数
 int Job;//总操作数，也就是基因的实际长度
 int age;//当前进化代数
-int MutantRange = (int)(RAND_MAX*MUTATION);//当rand()的值在[0,MutantRange]时发生突变
-int CrossoverRange = (int)(RAND_MAX*CROSS);//当rand()的值在[0,CrossoverRange]时发生交叉
-double Sum_fitness[2] = { 0 };//岛屿中所有个体适应度的和
+int MutantRange ;//当rand()的值在[0,MutantRange]时发生突变
+int CrossoverRange ;//当rand()的值在[0,CrossoverRange]时发生交叉
+double Sum_fitness[2] ;//岛屿中所有个体适应度的和
 
 /***************************FOR DEBUG*************************************
 *	int mutanted[ISLAND][MAXnum];//表示经过突变的个体mutanted[island][index of the mutanted]

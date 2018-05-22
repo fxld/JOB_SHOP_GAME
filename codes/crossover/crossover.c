@@ -18,6 +18,7 @@ int* GetSubsets(void)	//subset of Elements
 		temp[i] = random[i];
 	temp[i] = -1;	//标记结尾
 	free(random);
+	random=NULL;
 	return &temp;
 }
 
@@ -152,7 +153,11 @@ void crossover(void)	//一次进行两个种群的交叉操作（可考虑分开
 				swap(&after_select[i][map2], &after_select[i][selected[i]--]);
 
 				for (i = 0; i < 2; i++)
+				{
 					free(temp[i]);
+					temp[i]=NULL;
+				}
 				free(subset);
+				subset=NULL;
 			}
 }

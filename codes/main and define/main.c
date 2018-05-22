@@ -2,11 +2,7 @@
 
 DATA **data=NULL;//输入数据data[Element][Machine]
 GENE island[ISLAND][MAXnum];//2个岛屿
-<<<<<<< HEAD
-PROCESS **Process=NULL;//使用四维数组存放解码出的设计图Process[island][gene][machine][工序]
-=======
-PROCESS **Process;//使用二维数组存放解码出的设计图Process[Machine][Element]
->>>>>>> 9f1bca40f22c35af1794d7ab82ae633e91b1b622
+PROCESS **Process=NULL;//使用二维数组存放解码出的设计图Process[Machine][Element]
 int after_select[ISLAND][MAXnum];//选择后基因的映射after_select[island][index of the selected],当after_selected[i][j]=-1时,表示已经进行过基因操作或是未选择
 int Element;//需加工的工件总数
 int Machine;//机器总数

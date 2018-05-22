@@ -1,7 +1,10 @@
-#include"define.h"
-void move()//ÒÆÃñ
+ï»¿#include"define.h"
+
+//ä½¿ç”¨åˆ°çš„å…¨å±€å˜é‡æœ‰island
+
+void move()//ç§»æ°‘
 {
-	GENE best[2];//´æ·ÅÁ½¸ö×îÓÅ¸öÌå
+	GENE best[2];//å­˜æ”¾ä¸¤ä¸ªæœ€ä¼˜ä¸ªä½“
 	int i, j, k;
 	best[0] = island[1][0];
 	best[1] = island[0][0];

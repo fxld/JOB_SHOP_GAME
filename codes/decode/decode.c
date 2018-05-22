@@ -61,7 +61,7 @@ int start;//开始时间
 int end;//完成时间
 }PROCESS;
 Process设计图
-data[Element][Marchine]输入数据
+data[Element][Machine]输入数据
 island[ISLAND][MAXnum]种群
 island.gene-->date-->Process
 */

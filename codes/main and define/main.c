@@ -2,7 +2,7 @@
 
 DATA **data;//输入数据data[Element][Machine]
 GENE island[ISLAND][MAXnum];//2个岛屿
-PROCESS ***Process;//使用四维数组存放解码出的设计图Process[island][gene][machine][工序]
+PROCESS **Process;//使用二维数组存放解码出的设计图Process[Machine][Element]
 int after_select[ISLAND][MAXnum];//选择后基因的映射after_select[island][index of the selected],当after_selected[i][j]=-1时,表示已经进行过基因操作或是未选择
 int Element;//需加工的工件总数
 int Machine;//机器总数
@@ -41,8 +41,21 @@ int main(void)
 	*/
 	input();//输入
 
-	code();//生成初始种群
+	data = (DATA**)malloc(Element * sizeof(DATA*));//data申请内存
+	for (int i = 0; i < Element; i++)
+	{
+		data[i] = (DATA*)malloc(Machine * sizeof(DATA));
+	}
+	Process = (PROCESS**)malloc(Machine * sizeof(PROCESS*));//Process申请内存
+	for (int i = 0; i < Machine; i++)
+	{
+		Process[i] = (PROCESS*)malloc(Element * sizeof(PROCESS));
+	}
 	GENE *temporary = NULL;//临时空间
+	temporary = (GENE*)malloc(MAXnum * sizeof(GENE));
+
+	code();//生成初始种群
+
 	for (int i = 0; i < ISLAND; i++)//解码计算适应度and排序
 	{
 		for (int j = 0; j < MAXnum; i++)
@@ -50,12 +63,9 @@ int main(void)
 			decode(&island[i][j]);//解码计算适应度
 			Sum_fitness[i] += island[i][j].fitness;
 		}
-		
-		temporary = (GENE*)malloc(MAXnum * sizeof(GENE));
 		sort(0, MAXnum, island[i], temporary);//排序
 	}
-	free(temporary);
-	temporary = NULL;
+	
 	srand((unsigned int)time(NULL));
 	for (age = 0; age < MAXage; age++)//进化
 	{
@@ -63,7 +73,7 @@ int main(void)
 
 	}
 
-	if (island[0][0].makespan < island[1][0].makespan)//选择出当前最优解
+	if (island[0][0].makespan < island[1][0].makespan)//选择出当前最优解，解码后存入Process中
 	{
 		decode(&island[0][0]);
 	}
@@ -72,9 +82,20 @@ int main(void)
 		decode(&island[1][0]);
 	}
 	/*此时Process中存放的是最优解的解析图*/
-	output();
+	output();//输出
 
-
+	/****************内存释放****************/
+	for (int i = 0; i < Element; i++)
+	{
+		free(data[i]);
+	}
+	free(data);
+	for (int i = 0; i < Machine; i++)
+	{
+		free(Process[i]);
+	}
+	free(Process);
+	free(temporary);
 	system("pause");
 	return 0;
 }

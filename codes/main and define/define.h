@@ -39,7 +39,7 @@ typedef struct//解码出的单个机器上的单个工序
 /************************声明全局变量***********************/
 extern DATA **data;//输入数据
 extern GENE island[2][MAXnum];//岛屿
-extern PROCESS ***Process;//使用二维数组存放解码出的设计图
+extern PROCESS **Process;//使用二维数组存放解码出的设计图
 extern int Element;//需加工的工件总数
 extern int Machine;//机器总数
 extern int Job;//总操作数

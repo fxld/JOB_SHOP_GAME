@@ -1,4 +1,7 @@
 ﻿#include"define.h"
+
+//使用到的全局变量有data，Job，Element，Process
+
 void decode(GENE* unit)
 {
 	int i, j, k, m, e, t;

@@ -19,7 +19,7 @@ int* GetSubsets(void)	//subset of Elements
 	temp[i] = -1;	//标记结尾
 	free(random);
 	random=NULL;
-	return &temp;
+	return temp;
 }
 
 /*
@@ -78,7 +78,7 @@ int * GetTempGene(void)	//为子代基因申请临时存放空间
 
 void crossover(void)	//一次进行两个种群的交叉操作（可考虑分开？）
 {
-	int i, j, k, l；
+	int i, j, k, l;
 	int g1,g2;	//gene1,gene2
 	int map1, map2;
 	int interval;	//意义同CrossoverRange

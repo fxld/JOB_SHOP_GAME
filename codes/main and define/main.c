@@ -8,8 +8,8 @@ int Element;//需加工的工件总数
 int Machine;//机器总数
 int Job;//总操作数，也就是基因的实际长度
 int age;//当前进化代数
-int MutantRange ;//当rand()的值在[0,MutantRange]时发生突变
-int CrossoverRange ;//当rand()的值在[0,CrossoverRange]时发生交叉
+int MutantRange = (int)(((double)RAND_MAX)*MUTATION);//当rand()的值在[0,MutantRange]时发生突变
+int CrossoverRange = (int)(((double)RAND_MAX)*CROSS);//当rand()的值在[0,CrossoverRange]时发生交叉
 double Sum_fitness[2] ;//岛屿中所有个体适应度的和
 
 /***************************FOR DEBUG*************************************
@@ -41,11 +41,6 @@ int main(void)
 	*/
 	input();//输入
 
-	data = (DATA**)malloc(Element * sizeof(DATA*));//data申请内存
-	for (int i = 0; i < Element; i++)
-	{
-		data[i] = (DATA*)malloc(Machine * sizeof(DATA));
-	}
 	Process = (PROCESS**)malloc(Machine * sizeof(PROCESS*));//Process申请内存
 	for (int i = 0; i < Machine; i++)
 	{

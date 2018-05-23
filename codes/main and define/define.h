@@ -75,6 +75,7 @@ extern void sort(int x, int y, GENE *island, GENE *temporary);
 extern void crossover(int group);
 extern void move(void);
 extern void mutant(void);
+extern double fitnesscalc(int);
 
 
 #endif

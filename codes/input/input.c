@@ -2,7 +2,7 @@
 
 //使用的全局变量：Element,Machine,data
 
-int choose(void)	//返回值:1代表文件输入，2代表键盘输入
+static int choose(void)	//返回值:1代表文件输入，2代表键盘输入
 {
 	int choice;
 
@@ -19,7 +19,7 @@ int choose(void)	//返回值:1代表文件输入，2代表键盘输入
 	return choice;
 }
 
-DATA ** memory_allocator(int col, int row)
+static DATA ** memory_allocator(int col, int row)
 {
 	DATA **temp = NULL;
 	temp = (DATA**)malloc(row * sizeof(DATA*));
@@ -32,8 +32,9 @@ DATA ** memory_allocator(int col, int row)
 void input(void)
 {
 	int ElementId;
-	int order;
+	int order,len;
 	char buffer = '\0';
+	len = ElementId = 0;
 
 	if (choose() == 1)
 	{
@@ -48,7 +49,7 @@ void input(void)
 	scanf("%d%d", &Element, &Machine);
 	data = memory_allocator(Machine, Element);
 
-	ElementId = 0;
+	
 	while (ElementId != -1)
 	{
 		order = 0;
@@ -56,15 +57,17 @@ void input(void)
 		while (getchar(buffer) != '\n')
 		{
 			scanf("(%d,%d)", &data[ElementId][order].time, &data[ElementId][order].line);
+			len++;
 			order++;
 		}
-		if (order<Machine)
+		if (order < Machine&&ElementId != -1)
 			for (int i = order; i < Machine; i++)
 			{
 				data[ElementId][order].line = -1;
 				data[ElementId][order].time = -1;
 			}
 	}
+	Job = len;
 }
 
 /**********************TEST*******************
@@ -77,8 +80,8 @@ int main(void)
 /*
 2
 3 3
-1 (7,1) (3,2) (15,3)
-2 (10,2) (17,1)
-3 (7,1) (22,2)
+0 (7,0) (3,1) (15,2)
+1 (10,1) (17,0)
+2 (7,0) (22,1)
 -1
 */

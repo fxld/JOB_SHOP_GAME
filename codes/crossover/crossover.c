@@ -2,7 +2,7 @@
 
 //用到的全局变量有：Job，CrossoverRange
 
-int* GetSubsets(void)	//subset of Elements
+static int* GetSubsets(void)	//subset of Elements
 {
 	int i;
 	int len = rand() % Element;	//确定该子集的基数
@@ -22,7 +22,7 @@ int* GetSubsets(void)	//subset of Elements
 	return temp;
 }
 
-int Num_Selected(int island,int start,int end)	//计算选择操作后被选出的基因数
+static int Num_Selected(int island,int start,int end)	//计算选择操作后被选出的基因数
 {
 	int mid = start + (end - start) / 2;
 	
@@ -37,7 +37,7 @@ int Num_Selected(int island,int start,int end)	//计算选择操作后被选出�
 		return i+1;
 }
 
-int cmp(const void *a, const void *b)	//用于qsort的比较函数
+static int cmp(const void *a, const void *b)	//用于qsort的比较函数
 {
 	return *(int*)b - *(int*)a;	//当元素1-元素2大于0时降序
 }
@@ -50,7 +50,7 @@ void swap(int *a, int *b)	//交换两个元素（int []）
 	*b = temp;
 }
 
-int * GetTempGene(void)	//为子代基因申请临时存放空间
+static int * GetTempGene(void)	//为子代基因申请临时存放空间
 {
 	int *temp = NULL;
 	temp = (int *)calloc(-1, Job * sizeof(int));	//长度为Job

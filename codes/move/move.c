@@ -2,7 +2,7 @@
 
 //使用到的全局变量有island
 
-void move()//移民
+void move(void)//移民
 {
 	GENE best[2];//存放两个最优个体
 	int i, j, k;

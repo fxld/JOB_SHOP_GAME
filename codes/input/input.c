@@ -57,6 +57,12 @@ void input(void)
 			scanf("(%d,%d)", &data[ElementId - 1][order].time, &data[ElementId - 1][order].line);
 			order++;
 		}
+		if (order<Machine)
+			for (int i = order; i < Machine; i++)
+			{
+				data[ElementId - 1][order].line = -1;
+				data[ElementId - 1][order].time = -1;
+			}
 	}
 }
 

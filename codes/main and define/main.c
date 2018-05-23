@@ -21,7 +21,7 @@ int main(void)
 {
 	/**************************
 	*	input();		//输入
-	*	initGen();		//生成初始种群
+	*	InitGen();		//生成初始种群
 	*	decode();		//解码
 	*	fitness();		//计算适应度
 	*	while(terminate())//是否达成跳出循环
@@ -50,7 +50,7 @@ int main(void)
 	GENE *temporary = NULL;//临时空间
 	temporary = (GENE*)malloc(MAXnum * sizeof(GENE));
 
-	code();//生成初始种群
+	IniGen();//生成初始种群
 
 	for (int i = 0; i < ISLAND; i++)//解码计算适应度and排序
 	{

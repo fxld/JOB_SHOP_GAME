@@ -1,11 +1,14 @@
 ﻿#pragma once
+#ifndef __DEFINE__H__
+#define __DEFINE__H__
+
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
 #include<math.h>
 #include<time.h>
 #include<stdbool.h>
-
+#include<ctype.h>
 
 #define MAXlen 1000	//染色体长度
 #define MAXnum 1000	//种群容量
@@ -53,3 +56,5 @@ extern double Sum_fitness[2];//岛屿中所有个体适应度的和
 *
 *
 */
+
+#endif

@@ -42,10 +42,11 @@ int main(void)
 	input();//输入
 
 	Process = (PROCESS**)malloc(Machine * sizeof(PROCESS*));//Process申请内存
-	for (int i = 0; i < Machine; i++)
-	{
-		Process[i] = (PROCESS*)malloc(Element * sizeof(PROCESS));
-	}
+	if (Process!=NULL)
+		for (int i = 0; i < Machine; i++)
+		{
+			Process[i] = (PROCESS*)malloc(Element * sizeof(PROCESS));
+		}
 	GENE *temporary = NULL;//临时空间
 	temporary = (GENE*)malloc(MAXnum * sizeof(GENE));
 

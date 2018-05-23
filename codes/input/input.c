@@ -1,5 +1,6 @@
 ﻿#include"define.h"
 
+//使用的全局变量：Element,Machine,data
 
 int choose(void)	//返回值:1代表文件输入，2代表键盘输入
 {
@@ -54,14 +55,14 @@ void input(void)
 		scanf("%d", &ElementId);
 		while (getchar(buffer) != '\n')
 		{
-			scanf("(%d,%d)", &data[ElementId - 1][order].time, &data[ElementId - 1][order].line);
+			scanf("(%d,%d)", &data[ElementId][order].time, &data[ElementId][order].line);
 			order++;
 		}
 		if (order<Machine)
 			for (int i = order; i < Machine; i++)
 			{
-				data[ElementId - 1][order].line = -1;
-				data[ElementId - 1][order].time = -1;
+				data[ElementId][order].line = -1;
+				data[ElementId][order].time = -1;
 			}
 	}
 }

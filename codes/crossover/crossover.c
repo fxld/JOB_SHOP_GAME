@@ -2,6 +2,14 @@
 
 //用到的全局变量有：Job，CrossoverRange
 
+static void swap(int *a, int *b)	//交换两个元素（int []）
+{
+	int temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
 static int* GetSubsets(void)	//subset of Elements
 {
 	int i;
@@ -42,19 +50,11 @@ static int cmp(const void *a, const void *b)	//用于qsort的比较函数
 	return *(int*)b - *(int*)a;	//当元素1-元素2大于0时降序
 }
 
-void swap(int *a, int *b)	//交换两个元素（int []）
-{
-	int temp;
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
 static int * GetTempGene(void)	//为子代基因申请临时存放空间
 {
 	int *temp = NULL;
 	temp = (int *)calloc(-1, Job * sizeof(int));	//长度为Job
-	return &temp;
+	return temp;
 }
 
 void crossover(int group)

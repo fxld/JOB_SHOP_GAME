@@ -4,7 +4,7 @@
 	使用的全局变量：Job,island[ISLAND][MAXnum],**data,Element,Machine
 */
 
-GENE code(GENE inigen)//传入一个初始染色体，返回一个新的染色体
+static GENE code(GENE inigen)//传入一个初始染色体，返回一个新的染色体
 {
 	int temp;
 	int key;
@@ -15,13 +15,14 @@ GENE code(GENE inigen)//传入一个初始染色体，返回一个新的染色�
 		inigen.gene[i] = inigen.gene[key];
 		inigen.gene[key] = temp;
 	}
+	return inigen;
 }
 
-void InitGen()//生成初始种群
+void InitGen(void)//生成初始种群
 {
 	int i, j, k = 0;
 	GENE inigen;
-	srand((unsigned int)time(NULL));
+	//srand((unsigned int)time(NULL)); //srand()对线程设置seed
 	for (i = 0; i < Element; i++)//按顺序直接生成第一条
 	{
 		for (j = 0; j < Machine && data[i][j].line != -1; j++)

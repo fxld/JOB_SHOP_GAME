@@ -1,28 +1,6 @@
 ﻿#include"define.h"
 
-/*
-int Get_Mutant_Range(void)//获取一个区间[0,n],n∈(0,RAND_MAX),并且n/RAND_MAX=突变概率
-{
-	return (int)(RAND_MAX*MUTATION);
-}
-*/
-
-/*
-int cmp(const void *a, const void *b)
-{
-	return *(int*)b - *(int*)a;//当元素1-元素2大于0时降序
-}
-*/
-
-/*
-void qsort_after_select(void)//对after_select降序排序，使after_select[i][j]=-1排在后面
-{
-	for (int i = 0; i < ISLAND; i++)
-		qsort(after_select[i], MAXnum, sizeof(int), *cmp);
-}
-*/
-
-int mutant(void)//after_select[island][index of the selected]
+void mutant(void)//after_select[island][index of the selected]
 {
 	int interval;
 	int pos1, pos2, temp;//position

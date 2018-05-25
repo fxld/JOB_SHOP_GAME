@@ -1,5 +1,7 @@
 ﻿#include"define.h"
 
+//全局变量有age
+
 #define END 0
 #define CONTINUE 1
 

@@ -22,20 +22,21 @@ static int choose(void)	//返回值:1代表文件输入，2代表键盘输入
 static DATA ** memory_allocator(int col, int row)
 {
 	DATA **temp = NULL;
-	temp = (DATA**)malloc(row * sizeof(DATA*));
+	temp = (DATA**)malloc((row+1) * sizeof(DATA*));
 	if (temp != NULL)
 		for (int i = 0; i < row; i++)
-			temp[i] = (DATA *)malloc(col * sizeof(DATA));
+			temp[i] = (DATA *)malloc((col+1) * sizeof(DATA));
 	return temp;
 }
 
 void input(void)
 {
 	int ElementId;
-	int order,len;
+	int order,len,line;
 	char buffer = '\0';
-	len = ElementId = 0;
-
+	int i;
+	len = ElementId = line = 0;
+	/***************input with file**********
 	if (choose() == 1)
 	{
 		if (freopen("input.txt", "r", stdin) == NULL)
@@ -45,13 +46,14 @@ void input(void)
 			exit(EXIT_FAILURE);
 		}
 	}
-
+	*/
 	scanf("%d%d", &Element, &Machine);
 	data = memory_allocator(Machine, Element);
 
-	
+	/***************按任务书要求的输入********************
 	while (ElementId != -1)
 	{
+		
 		order = 0;
 		scanf("%d", &ElementId);
 		while (getchar(buffer) != '\n')
@@ -66,8 +68,19 @@ void input(void)
 				data[ElementId][order].line = -1;
 				data[ElementId][order].time = -1;
 			}
+		
 	}
-	Job = len;
+	*******/
+	while (ElementId < Element)
+	{
+		for (i = 0; i < Machine; i++)
+			scanf("%d %d", &data[ElementId][i].line, &data[ElementId][i].time);
+		data[ElementId][i].line = -1;
+		data[ElementId][i].time = -1;
+		ElementId++;
+	}
+	//Job = len;
+	Job = Element * Machine;
 }
 
 /**********************TEST*******************

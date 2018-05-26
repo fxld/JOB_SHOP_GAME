@@ -5,7 +5,7 @@
 void decode(GENE* unit)
 {
 	int i, j, k, m, e, t;
-	int num[2][1000] = { 0 };//第0行是工件当前安排到第几个操作，第1行是工件当前完成时间
+	int num[ISLAND][MAXnum] = { 0 };//第0行是工件当前安排到第几个操作，第1行是工件当前完成时间
 	int maxtime = 0;//记录makespan
 	for (i = 0; i < Machine; i++)
 	{
@@ -14,12 +14,14 @@ void decode(GENE* unit)
 			Process[i][j].component = -1;
 		}
 	}
-	for (int k = 0; k < Job; k++)//gene[k]
+	for (k = 0; k < Job; k++)//gene[k]
 	{
+	//	printf("%d\n", Job);
 		e = unit->gene[k];//工件
 		m = data[e][num[0][e]].line;//机器
 		t = data[e][num[0][e]].time;//时间
 		num[0][e]++;
+		
 		for (j = 0; Process[m][j].component != -1; j++)//贪心法，寻找可以插入的位置
 		{
 			if (Process[m][j + 1].component == -1)//需要插入j与j+1之间，若j已经是最后一个操作，就跳过
@@ -31,7 +33,27 @@ void decode(GENE* unit)
 				}
 				else continue;
 			}
-			if ((Process[m][j + 1].start - num[1][e] >= t) && (Process[m][j + 1].start - Process[m][j].end >= t))break;
+			else if (j == 0 && Process[m][j].start >= t && Process[m][j].start - num[1][e] >= t)
+			{
+				for (i = Element - 1; i > j; i--)//将j之后的操作全体后移
+				{
+					Process[m][i] = Process[m][i - 1];
+				}
+				goto fixbug;
+			}
+			if ((Process[m][j + 1].start - num[1][e] >= t) && (Process[m][j + 1].start - Process[m][j].end >= t))
+			{
+				if (j == 0)
+				{
+					for (i = Element - 1; i > j; i--)//将j之后的操作全体后移
+					{
+						Process[m][i] = Process[m][i - 1];
+					}
+					j++;
+					goto fixbug;
+				}
+				break;
+			}
 		}
 		if (Process[m][j].component != -1 && j != 0)//若找到可插入位置，则component一定不为-1
 		{
@@ -41,7 +63,8 @@ void decode(GENE* unit)
 			}
 			j++;
 		}
-		Process[m][j].component = e;
+		
+fixbug:		Process[m][j].component = e;
 		if (j == 0)
 		{
 			Process[m][j].start = num[1][e];
@@ -55,7 +78,16 @@ void decode(GENE* unit)
 		num[1][e] = Process[m][j].end;
 	}
 	unit->makespan = maxtime;//完工时间
-	unit->fitness = fitnesscalc(unit->makespan);//适应度
+	//unit->fitness = fitnesscalc(unit->makespan);//适应度
+}
+/*
+int main(void)
+{
+	input();
+	
+	GENE test = { { 2,5,5,1,1,1,1,0,1,2,5,4,5,3,0,4,0,3,0,2,3,2,3,2,3,0,1,5,4,5,0,2,4,3,4,4 },0,0 };
+	decode(&test);
+	return 0;
 }
 /*typedef struct//解码出的单个机器上的单个工序
 {

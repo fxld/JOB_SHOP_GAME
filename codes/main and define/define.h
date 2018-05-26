@@ -13,13 +13,20 @@
 
 /*******************常量定义**********************/
 
-#define MAXlen 1000	//染色体长度
-#define MAXnum 1000	//种群容量
-#define MOVEage 30	//移民间隔
+#define MAXlen 305	//染色体长度
+//#define MAXnum 1000	//种群容量
+#define MAXnum 400	//种群容量
+#define MOVEage 50	//移民间隔
+//#define MAXage 1000	//最大代数
 #define MAXage 1000	//最大代数
 #define ISLAND 2	//岛屿数量
-#define MUTATION 0.1	//突变概率
-#define CROSS 0.5	//交叉概率
+#define MUTATION 0.15	//突变概率
+#define CROSS 0.85	//交叉概率
+#define ELITE 0.005	//精英比率
+#define TSIZE 2		//竞技场大小
+#define TWIN 1		//竞技场胜者个数
+#define TRANGE 0.65	//竞技场选择生产时间短的概率
+
 
 
 /*******************结构定义**********************/
@@ -49,6 +56,10 @@ typedef struct//解码出的单个机器上的单个工序
 
 extern DATA **data;//输入数据
 extern GENE island[2][MAXnum];//岛屿
+extern GENE random_pair[TSIZE];
+extern GENE **offspring_tselect;
+extern GENE **offspring_eselect;
+extern GENE **offspring_operated;
 extern PROCESS **Process;//使用二维数组存放解码出的设计图
 extern int Element;//需加工的工件总数
 extern int Machine;//机器总数
@@ -56,8 +67,13 @@ extern int Job;//总操作数
 extern int age;//当前进化代数
 extern int MutantRange;//发生突变的区间
 extern int CrossoverRange;//发生交叉的区间
-extern int after_select[ISLAND][MAXnum];//选择后的基因映射
+extern int TournamentRange;
+//extern int after_select[ISLAND][MAXnum];//选择后的基因映射
 extern double Sum_fitness[2];//岛屿中所有个体适应度的和
+extern int elite_size;
+extern int nelite_size;
+extern int max_operate_num;
+extern int crossovered[ISLAND][MAXnum];
 
 /************************FOR DEBUG***********************
 
@@ -72,10 +88,13 @@ extern void input(void);
 extern void InitGen(void);
 extern void decode(GENE* unit);
 extern void sort(int x, int y, GENE *island, GENE *temporary);
-extern void crossover(int group);
+extern void crossover(GENE *o2, int group);
 extern void move(void);
-extern void mutant(void);
+extern void mutant(GENE *o2, int group);
 extern double fitnesscalc(int);
+extern void select(GENE ***, GENE ***);
+extern int terminate(void);
+
 
 
 #endif

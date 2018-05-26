@@ -23,6 +23,7 @@ void InitGen(void)//生成初始种群
 	int i, j, k = 0;
 	GENE inigen;
 	//srand((unsigned int)time(NULL)); //srand()对线程设置seed
+
 	for (i = 0; i < Element; i++)//按顺序直接生成第一条
 	{
 		for (j = 0; j < Machine && data[i][j].line != -1; j++)

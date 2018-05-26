@@ -21,6 +21,7 @@
 #define MUTATION 0.1	//突变概率
 #define CROSS 0.5	//交叉概率
 
+
 /*******************结构定义**********************/
 
 typedef struct //存放输入的数据
@@ -52,6 +53,7 @@ extern PROCESS **Process;//使用二维数组存放解码出的设计图
 extern int Element;//需加工的工件总数
 extern int Machine;//机器总数
 extern int Job;//总操作数
+extern int age;//当前进化代数
 extern int MutantRange;//发生突变的区间
 extern int CrossoverRange;//发生交叉的区间
 extern int after_select[ISLAND][MAXnum];//选择后的基因映射
@@ -73,6 +75,7 @@ extern void sort(int x, int y, GENE *island, GENE *temporary);
 extern void crossover(int group);
 extern void move(void);
 extern void mutant(void);
+extern double fitnesscalc(int);
 
 
 #endif

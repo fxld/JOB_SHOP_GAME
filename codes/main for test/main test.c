@@ -13,6 +13,7 @@ int CrossoverRange = (int)(((double)RAND_MAX)*CROSS);//当rand()的值在[0,Cros
 double Sum_fitness[2];//岛屿中所有个体适应度的和
 int main(void)
 {
+	int i, j, k;
 	/**************************
 	*	input();		//输入
 	*	initGen();		//生成初始种群
@@ -35,6 +36,47 @@ int main(void)
 	*/
 	input();
 	InitGen();
+
+	Process = (PROCESS**)malloc(Machine * sizeof(PROCESS*));//Process申请内存
+	if (Process != NULL)
+		for (int i = 0; i < Machine; i++)
+			Process[i] = (PROCESS*)malloc(Element * sizeof(PROCESS));
+
+	GENE *temporary = NULL;//临时空间
+	temporary = (GENE*)malloc(MAXnum * sizeof(GENE));
+
+	for (i = 0; i < ISLAND; i++)
+	{
+		for (j = 0; j < MAXnum; j++)
+		{
+			decode(&island[i][j]);
+			Sum_fitness[i] += island[i][j].fitness;
+		}
+	}
+
+	while (terminate())
+	{
+		for (i = 0; i < ISLAND; i++)
+			sort(0, MAXnum, island[i], temporary);//排序
+		//select();
+		for (i = 0; i < ISLAND; i++)
+		{
+			crossover(i);
+			mutant(i);
+		}
+		if (age%MOVEage == 0)
+			move();
+		for (i = 0; i < ISLAND; i++)
+		{
+			for (j = 0; j < MAXnum; j++)
+			{
+				decode(&island[i][j]);
+				Sum_fitness[i] += island[i][j].fitness;
+			}
+		}
+	}
+	//output();
+	//animate();
 	return 0;
 }
 

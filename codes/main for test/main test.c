@@ -19,6 +19,7 @@ int nelite_size = MAXnum - (int)(ELITE*(double)MAXnum);
 int max_operate_num = (MAXnum - (int)(ELITE*(double)MAXnum)) / TSIZE;
 int crossovered[ISLAND][MAXnum] = {-1};
 double Sum_fitness[2];//岛屿中所有个体适应度的和
+int BestMakeSpan;//最优解的最长完工时间
 
 
 int main(void)
@@ -85,9 +86,10 @@ int main(void)
 		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\n", age, island[0][0].makespan, island[1][0].makespan);
 		age++;
 	}
-	for (int i = 0; i < Job; i++)
-		printf("%d,", island[0][0].gene[i]);
-	//output();
+	/*for (int i = 0; i < Job; i++)
+		printf("%d,", island[0][0].gene[i]);*/
+	BestMakeSpan = island[0][0].makespan < island[1][0].makespan ? island[0][0].makespan : island[1][0].makespan;
+	output();
 	//animate();
 	for (int i = 0; i < Machine; i++)
 		free(Process[i]);
@@ -103,6 +105,7 @@ int main(void)
 		free(offspring_tselect[i]);
 	free(offspring_tselect);
 	//while (1);
+	system("pause");
 	return 0;
 }
 

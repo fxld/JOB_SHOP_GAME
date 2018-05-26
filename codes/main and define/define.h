@@ -26,6 +26,7 @@
 #define TSIZE 2		//竞技场大小
 #define TWIN 1		//竞技场胜者个数
 #define TRANGE 0.65	//竞技场选择生产时间短的概率
+#define TIMELIMIT 299990//运行时间限制为5min
 
 
 
@@ -40,13 +41,14 @@ typedef struct //存放输入的数据
 typedef struct //单个染色体
 {
 	int gene[MAXlen];//基因
-	int makespan;//最长完工时间
+	int makespan;	//最长完工时间
 	double fitness;//适应度
 }GENE;
 
 typedef struct//解码出的单个机器上的单个工序
 {
 	int component;//工件号
+	int operation;//当前工件的操作数
 	int start;//开始时间
 	int end;//完成时间
 }PROCESS;
@@ -74,6 +76,7 @@ extern int elite_size;
 extern int nelite_size;
 extern int max_operate_num;
 extern int crossovered[ISLAND][MAXnum];
+extern int BestMakeSpan;//最优解的最长完工时间
 
 /************************FOR DEBUG***********************
 

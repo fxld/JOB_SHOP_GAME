@@ -45,7 +45,7 @@ static int* GetSubsets(void)	//subset of Elements
 int *map_allocator(int len)
 {
 	int *temp = NULL;
-	int i, j;
+	int i;
 	temp = (int *)malloc((len + 1) * sizeof(int));
 	if (temp != NULL)
 	{

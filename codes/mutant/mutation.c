@@ -26,7 +26,7 @@ void mutant(GENE *o2, int group)//after_select[island][index of the selected]
 	int pos1, pos2, temp;
 	int map_len;
 	int present;
-	int i, j, k;
+	int i;
 
 	generate_mutant_map(mutant_map, group);
 

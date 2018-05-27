@@ -97,7 +97,7 @@ extern void mutant(GENE *o2, int group);
 extern double fitnesscalc(int);
 extern void select(GENE ***, GENE ***);
 extern int terminate(void);
-
+extern void output(void);
 
 
 #endif

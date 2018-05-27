@@ -19,12 +19,12 @@ int nelite_size = MAXnum - (int)(ELITE*(double)MAXnum);
 int max_operate_num = (MAXnum - (int)(ELITE*(double)MAXnum)) / TSIZE;
 int crossovered[ISLAND][MAXnum] = {-1};
 double Sum_fitness[2];//岛屿中所有个体适应度的和
-int BestMakeSpan;//最优解的最长完工时间
+int BestMakeSpan=99999;//最优解的最长完工时间
 
 
 int main(void)
 {
-	int i, j, k;
+	int i, j;
 	/**************************
 	*	input();		//输入
 	*	initGen();		//生成初始种群
@@ -83,12 +83,33 @@ int main(void)
 		}
 		if (age%MOVEage == 0)
 			move();
-		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\n", age, island[0][0].makespan, island[1][0].makespan);
+		if (island[0][0].makespan < island[1][0].makespan)
+		{
+			decode(&island[0][0]);
+			BestMakeSpan = island[0][0].makespan;
+		}
+		else
+		{
+			decode(&island[1][0]);
+			BestMakeSpan = island[1][0].makespan;
+		}
+		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\t\n", age, island[0][0].makespan, island[1][0].makespan);
 		age++;
 	}
 	/*for (int i = 0; i < Job; i++)
-		printf("%d,", island[0][0].gene[i]);*/
-	BestMakeSpan = island[0][0].makespan < island[1][0].makespan ? island[0][0].makespan : island[1][0].makespan;
+		printf("%d,", island[0][0].gene[i]);
+	putchar('\n');*/
+	/*if (island[0][0].makespan < island[1][0].makespan)
+	{
+		decode(&island[0][0]);
+		BestMakeSpan = island[0][0].makespan;
+	}
+	else
+	{
+		decode(&island[1][0]);
+		BestMakeSpan = island[1][0].makespan;
+	}*/
+	//printf("\n%d\n", BestMakeSpan);
 	output();
 	//animate();
 	for (int i = 0; i < Machine; i++)

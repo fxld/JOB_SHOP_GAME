@@ -5,7 +5,7 @@
 void decode(GENE* unit)
 {
 	int i, j, k, m, e, t;
-	int num[ISLAND][MAXnum] = { 0 };//第0行是工件当前安排到第几个操作，第1行是工件当前完成时间
+	int num[2][1000] = { 0 };//第0行是工件当前安排到第几个工序，第1行是工件当前完成时间，列数最多使用Element列
 	int maxtime = 0;//记录makespan
 	for (i = 0; i < Machine; i++)
 	{
@@ -20,7 +20,7 @@ void decode(GENE* unit)
 		e = unit->gene[k];//工件
 		m = data[e][num[0][e]].line;//机器
 		t = data[e][num[0][e]].time;//时间
-		num[0][e]++;
+		
 		
 		for (j = 0; Process[m][j].component != -1; j++)//贪心法，寻找可以插入的位置
 		{
@@ -74,6 +74,7 @@ fixbug:		Process[m][j].component = e;
 			Process[m][j].start = Process[m][j - 1].end > num[1][e] ? Process[m][j - 1].end : num[1][e];
 		}
 		Process[m][j].end = Process[m][j].start + t;
+		Process[m][j].operation = num[0][e]++;
 		maxtime = maxtime > Process[m][j].end ? maxtime : Process[m][j].end;
 		num[1][e] = Process[m][j].end;
 	}

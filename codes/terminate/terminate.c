@@ -7,7 +7,7 @@
 
 int terminate(void)
 {
-	if (age >= MAXage)	//固定代数终止
+	if (age >= MAXage||clock()>TIMELIMIT)	//固定代数终止、超时终止
 		return END;
 	return CONTINUE;
 }

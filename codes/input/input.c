@@ -32,7 +32,7 @@ static DATA ** memory_allocator(int col, int row)
 void input(void)
 {
 	int ElementId;
-	int order,len,line;
+	int len,line;
 	char buffer = '\0';
 	int i;
 	len = ElementId = line = 0;

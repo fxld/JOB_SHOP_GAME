@@ -69,7 +69,7 @@ void randomize(GENE * pair)
 
 void select(GENE ***o1,GENE ***o2)//select(&offspring_eselect,&offspring_tselect,index_of_island)
 {
-	int i, j, k, l;
+	int i, j, k;
 	int selected;
 	int **tournament=NULL;
 	static int o1_size[ISLAND],o2_size[ISLAND];

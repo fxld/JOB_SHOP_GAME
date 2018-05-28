@@ -1,6 +1,6 @@
 ﻿#include"define.h"
 /*
-使用的全局变量：Element,Machine,Process
+使用的全局变量：Element,Machine,BestProcess
 */
 void output(void)
 {
@@ -8,9 +8,9 @@ void output(void)
 	for (i = 0; i < Machine; i++)
 	{
 		printf("M%d", i);
-		for (j = 0; j < Element&&Process[i][j].component != -1; j++)
+		for (j = 0; j < Element&&BestProcess[i][j].component != -1; j++)
 		{
-			printf(" (%d,%d-%d,%d)", Process[i][j].start, Process[i][j].component, Process[i][j].operation, Process[i][j].end);
+			printf(" (%d,%d-%d,%d)", BestProcess[i][j].start, BestProcess[i][j].component, BestProcess[i][j].operation, BestProcess[i][j].end);
 		}
 		printf("\n");
 	}

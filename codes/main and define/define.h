@@ -63,6 +63,7 @@ extern GENE **offspring_tselect;
 extern GENE **offspring_eselect;
 extern GENE **offspring_operated;
 extern PROCESS **Process;//使用二维数组存放解码出的设计图
+extern PROCESS **BestProcess;//存放最优的设计图
 extern int Element;//需加工的工件总数
 extern int Machine;//机器总数
 extern int Job;//总操作数

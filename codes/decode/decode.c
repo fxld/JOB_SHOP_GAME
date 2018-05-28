@@ -1,6 +1,6 @@
 ﻿#include"define.h"
 
-//使用到的全局变量有data，Job，Element，Process
+//使用到的全局变量有data，Job，Element，Process,BestMakeSpan,BestProcess
 
 void decode(GENE* unit)
 {
@@ -79,6 +79,14 @@ fixbug:		Process[m][j].component = e;
 		num[1][e] = Process[m][j].end;
 	}
 	unit->makespan = maxtime;//完工时间
+	if (BestMakeSpan > maxtime)//最优设计图的保存
+	{
+		BestMakeSpan = maxtime;
+		for (i = 0; i < Machine; i++)
+		{
+			memcpy(BestProcess[i], Process[i], Element * sizeof(PROCESS));
+		}
+	}
 	//unit->fitness = fitnesscalc(unit->makespan);//适应度
 }
 /*

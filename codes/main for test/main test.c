@@ -3,6 +3,7 @@
 DATA **data = NULL;//输入数据data[Element][Machine]
 GENE island[ISLAND][MAXnum];//2个岛屿
 PROCESS **Process = NULL;//使用二维数组存放解码出的设计图Process[Machine][Element]
+PROCESS **BestProcess = NULL;//存放最优的设计图BestProcess[Machine][Element]
 GENE random_pair[TSIZE];
 GENE **offspring_tselect = NULL;
 GENE **offspring_eselect = NULL;
@@ -53,6 +54,11 @@ int main(void)
 	if (Process != NULL)
 		for (int i = 0; i < Machine; i++)
 			Process[i] = (PROCESS*)malloc((Element+1) * sizeof(PROCESS));
+
+	BestProcess = (PROCESS**)malloc((Machine + 1) * sizeof(PROCESS*));//BestProcess申请内存
+	if (BestProcess != NULL)
+		for (int i = 0; i < Machine; i++)
+			BestProcess[i] = (PROCESS*)malloc((Element + 1) * sizeof(PROCESS));
 	
 	GENE *temporary = NULL;//临时空间
 	temporary = (GENE*)malloc((MAXnum+1) * sizeof(GENE));
@@ -83,7 +89,7 @@ int main(void)
 		}
 		if (age%MOVEage == 0)
 			move();
-		if (island[0][0].makespan < island[1][0].makespan)
+		/*if (island[0][0].makespan < island[1][0].makespan)
 		{
 			decode(&island[0][0]);
 			BestMakeSpan = island[0][0].makespan;
@@ -92,29 +98,18 @@ int main(void)
 		{
 			decode(&island[1][0]);
 			BestMakeSpan = island[1][0].makespan;
-		}
-		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\t\n", age, island[0][0].makespan, island[1][0].makespan);
+		}*/
+		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\tBestMakeSpan:%d\n", age, island[0][0].makespan, island[1][0].makespan,BestMakeSpan);
 		age++;
 	}
-	/*for (int i = 0; i < Job; i++)
-		printf("%d,", island[0][0].gene[i]);
-	putchar('\n');*/
-	/*if (island[0][0].makespan < island[1][0].makespan)
-	{
-		decode(&island[0][0]);
-		BestMakeSpan = island[0][0].makespan;
-	}
-	else
-	{
-		decode(&island[1][0]);
-		BestMakeSpan = island[1][0].makespan;
-	}*/
-	//printf("\n%d\n", BestMakeSpan);
 	output();
 	//animate();
 	for (int i = 0; i < Machine; i++)
 		free(Process[i]);
 	free(Process);
+	for (int i = 0; i < Machine; i++)
+		free(BestProcess[i]);
+	free(BestProcess);
 	free(temporary);
 	for (int i = 0; i < Element; i++)
 		free(data[i]);
@@ -125,7 +120,6 @@ int main(void)
 	for (int i = 0; i < ISLAND; i++)
 		free(offspring_tselect[i]);
 	free(offspring_tselect);
-	//while (1);
 	system("pause");
 	return 0;
 }

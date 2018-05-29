@@ -24,7 +24,7 @@ static DATA ** memory_allocator(int col, int row)
 	DATA **temp = NULL;
 	temp = (DATA**)malloc((row+1) * sizeof(DATA*));
 	if (temp != NULL)
-		for (int i = 0; i < row; i++)
+		for (int i = 0; i < row+1; i++)
 			temp[i] = (DATA *)malloc((col+1) * sizeof(DATA));
 	return temp;
 }
@@ -32,7 +32,7 @@ static DATA ** memory_allocator(int col, int row)
 void input(void)
 {
 	int ElementId;
-	int order,len,line;
+	int len,line;
 	char buffer = '\0';
 	int i;
 	len = ElementId = line = 0;

@@ -3,6 +3,7 @@
 DATA **data = NULL;//输入数据data[Element][Machine]
 GENE island[ISLAND][MAXnum];//2个岛屿
 PROCESS **Process = NULL;//使用二维数组存放解码出的设计图Process[Machine][Element]
+PROCESS **BestProcess = NULL;//存放最优的设计图BestProcess[Machine][Element]
 GENE random_pair[TSIZE];
 GENE **offspring_tselect = NULL;
 GENE **offspring_eselect = NULL;
@@ -14,17 +15,18 @@ int age;//当前进化代数
 int MutantRange = (int)(((double)RAND_MAX)*MUTATION);//当rand()的值在[0,MutantRange]时发生突变
 int CrossoverRange = (int)(((double)RAND_MAX)*CROSS);//当rand()的值在[0,CrossoverRange]时发生交叉
 int TournamentRange = (int)(((double)RAND_MAX)*TRANGE);
-int elite_size = (int)(ELITE*(double)MAXnum);
+int elite_size = (int)(ELITE*(double)MAXnum) >= 1 ? (int)(ELITE*(double)MAXnum) : 1;
+//int elite_size = 0;
 int nelite_size = MAXnum - (int)(ELITE*(double)MAXnum);
 int max_operate_num = (MAXnum - (int)(ELITE*(double)MAXnum)) / TSIZE;
 int crossovered[ISLAND][MAXnum] = {-1};
 double Sum_fitness[2];//岛屿中所有个体适应度的和
-int BestMakeSpan;//最优解的最长完工时间
+int BestMakeSpan=99999;//最优解的最长完工时间
 
 
 int main(void)
 {
-	int i, j, k;
+	int i, j;
 	/**************************
 	*	input();		//输入
 	*	initGen();		//生成初始种群
@@ -49,10 +51,15 @@ int main(void)
 	input();
 	InitGen();
 
-	Process = (PROCESS**)malloc((Machine+1) * sizeof(PROCESS*));//Process申请内存
+	Process = (PROCESS**)malloc((Machine + 1) * sizeof(PROCESS*));//Process申请内存
 	if (Process != NULL)
-		for (int i = 0; i < Machine; i++)
-			Process[i] = (PROCESS*)malloc((Element+1) * sizeof(PROCESS));
+		for (int i = 0; i < Machine+1; i++)
+			Process[i] = (PROCESS*)malloc((Element + 1) * sizeof(PROCESS));
+
+	BestProcess = (PROCESS**)malloc((Machine + 1) * sizeof(PROCESS*));//BestProcess申请内存
+	if (BestProcess != NULL)
+		for (int i = 0; i < Machine+1; i++)
+			BestProcess[i] = (PROCESS*)malloc((Element + 1) * sizeof(PROCESS));
 	
 	GENE *temporary = NULL;//临时空间
 	temporary = (GENE*)malloc((MAXnum+1) * sizeof(GENE));
@@ -83,17 +90,33 @@ int main(void)
 		}
 		if (age%MOVEage == 0)
 			move();
-		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\n", age, island[0][0].makespan, island[1][0].makespan);
+		/*if (island[0][0].makespan < island[1][0].makespan)
+		{
+			decode(&island[0][0]);
+			BestMakeSpan = island[0][0].makespan;
+		}
+		else
+		{
+			decode(&island[1][0]);
+			BestMakeSpan = island[1][0].makespan;
+		}*/
+		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\tBestMakeSpan:%d", age, island[0][0].makespan, island[1][0].makespan,BestMakeSpan);
+		printf("Time %.3f\n", (double)clock() / 1000);
 		age++;
 	}
-	/*for (int i = 0; i < Job; i++)
-		printf("%d,", island[0][0].gene[i]);*/
-	BestMakeSpan = island[0][0].makespan < island[1][0].makespan ? island[0][0].makespan : island[1][0].makespan;
+	int sum_time=0;
+	for (int i = 0; i < ISLAND; i++)
+		for (int j = 0; j < MAXnum; j++)
+			sum_time += island[i][j].makespan;
+	printf("%lf\n", (double)sum_time / ISLAND / MAXnum);
 	output();
 	//animate();
 	for (int i = 0; i < Machine; i++)
 		free(Process[i]);
 	free(Process);
+	for (int i = 0; i < Machine; i++)
+		free(BestProcess[i]);
+	free(BestProcess);
 	free(temporary);
 	for (int i = 0; i < Element; i++)
 		free(data[i]);
@@ -104,7 +127,6 @@ int main(void)
 	for (int i = 0; i < ISLAND; i++)
 		free(offspring_tselect[i]);
 	free(offspring_tselect);
-	//while (1);
 	system("pause");
 	return 0;
 }

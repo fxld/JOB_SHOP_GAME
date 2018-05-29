@@ -1,5 +1,5 @@
-#include"define.h"
-void sort(int x,int y,GENE *island,GENE *temporary)//´Óxµ½yµÄ²¢¹éÅÅÐò£¬ÐèÉêÇëÒ»¸öÁÙÊ±Êý×é
+ï»¿#include"define.h"
+void sort(int x,int y,GENE *island,GENE *temporary)//ä»Žxåˆ°yçš„å¹¶å½’æŽ’åºï¼ˆæŒ‰å®Œæˆæ—¶é—´å‡åºï¼‰ï¼Œéœ€ç”³è¯·ä¸€ä¸ªä¸´æ—¶æ•°ç»„
 {
 	if (y - x > 1)
 	{

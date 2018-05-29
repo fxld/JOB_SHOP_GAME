@@ -24,7 +24,7 @@ static DATA ** memory_allocator(int col, int row)
 	DATA **temp = NULL;
 	temp = (DATA**)malloc((row+1) * sizeof(DATA*));
 	if (temp != NULL)
-		for (int i = 0; i < row; i++)
+		for (int i = 0; i < row+1; i++)
 			temp[i] = (DATA *)malloc((col+1) * sizeof(DATA));
 	return temp;
 }

@@ -42,7 +42,7 @@ static int* GetSubsets(void)	//subset of Elements
 		return NULL;
 }
 
-int *map_allocator(int len)
+int *map_allocator(int len)	//为映射图申请内存并生成映射图
 {
 	int *temp = NULL;
 	int i;
@@ -56,12 +56,12 @@ int *map_allocator(int len)
 	}
 	return temp;
 }
-
+/*
 static int cmp(const void *a, const void *b)	//用于qsort的比较函数
 {
 	return *(int*)b - *(int*)a;	//当元素1-元素2大于0时降序
 }
-
+*/
 static int * GetTempGene(void)	//为子代基因申请临时存放空间
 {
 	int *temp = NULL;
@@ -75,10 +75,10 @@ void crossover(GENE *o2,int group)
 {
 	int i, j, k, l;
 	int g1,g2;	//gene1,gene2
-	int *map = NULL;
+	int *map = NULL;//映射表(包含随机化的o2的下标)	map[index of offspring]
 	int interval;	//意义同CrossoverRange
-	int *subset = NULL;
-	int *temp[2] = { NULL };
+	int *subset = NULL;	//存放生成的工件的子集 subset[random length(less than Element)]
+	int *temp[2] = { NULL };	//存放交叉获得的gene	temp[island][length of gene]
 	int operation_num;//获取种群的最大交叉操作数量
 	int selected;//存放种群的中被选择出的数量
 

@@ -8,7 +8,7 @@ static void swap(int *a, int *b)	//交换两个元素（int []）
 	*b = temp;
 }
 
-void generate_mutant_map(int *map,int group)
+void generate_mutant_map(int *map,int group)	//生成变异操作的映射表 map[index of offspring]
 {
 	int i,j;
 	for (i = 0, j = 1; i < nelite_size; i++)
@@ -19,14 +19,14 @@ void generate_mutant_map(int *map,int group)
 	//	swap(&(*map)[i], &(*map)[(rand() % i) + 1]);
 }
 
-void mutant(GENE *o2, int group)//after_select[island][index of the selected]
+void mutant(GENE *o2, int group)
 {
-	int interval;
-	int mutant_map[MAXnum + 1];
-	int pos1, pos2, temp;
-	int map_len;
-	int present;
-	int i;
+	int interval;	//发生变异的区间	rand()<interval时变异
+	int mutant_map[MAXnum + 1];	//变异操作的映射表 map[index of offspring]
+	int pos1, pos2;	//变异基因上的不同位置chromosome.gene[position]
+	int temp;	//用于交换pos1,pos2上的元素
+	int map_len;//映射表的长度
+	int present;//正在变异的染色体的下标
 
 	generate_mutant_map(mutant_map, group);
 
@@ -35,7 +35,7 @@ void mutant(GENE *o2, int group)//after_select[island][index of the selected]
 	map_len = mutant_map[0];
 	interval = MutantRange;
 
-	for (i = 1; i < map_len; i++)
+	for (int i = 1; i < map_len; i++)
 	{
 		if (rand() <= interval)
 		{

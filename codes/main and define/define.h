@@ -13,7 +13,7 @@
 
 /*******************常量定义**********************/
 
-#define MAXlen 200	//染色体长度
+#define MAXlen 205	//染色体长度
 //#define MAXnum 1000	//种群容量
 #define MAXnum 400	//种群容量
 #define MOVEage 50	//移民间隔
@@ -21,11 +21,11 @@
 #define MAXage 2000	//最大代数
 #define ISLAND 2	//岛屿数量
 #define MUTATION 0.2	//突变概率
-#define CROSS 0.8	//交叉概率
+#define CROSS 0.7	//交叉概率
 #define ELITE 0.005	//精英比率
 #define TSIZE 2		//竞技场大小
 #define TWIN 1		//竞技场胜者个数
-#define TRANGE 0.65	//竞技场选择生产时间短的概率
+#define TRANGE 1	//竞技场选择生产时间短的概率
 #define TIMELIMIT 299990//运行时间限制为5min
 
 

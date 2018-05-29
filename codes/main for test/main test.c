@@ -15,7 +15,8 @@ int age;//当前进化代数
 int MutantRange = (int)(((double)RAND_MAX)*MUTATION);//当rand()的值在[0,MutantRange]时发生突变
 int CrossoverRange = (int)(((double)RAND_MAX)*CROSS);//当rand()的值在[0,CrossoverRange]时发生交叉
 int TournamentRange = (int)(((double)RAND_MAX)*TRANGE);
-int elite_size = (int)(ELITE*(double)MAXnum);
+int elite_size = (int)(ELITE*(double)MAXnum) >= 1 ? (int)(ELITE*(double)MAXnum) : 1;
+//int elite_size = 0;
 int nelite_size = MAXnum - (int)(ELITE*(double)MAXnum);
 int max_operate_num = (MAXnum - (int)(ELITE*(double)MAXnum)) / TSIZE;
 int crossovered[ISLAND][MAXnum] = {-1};
@@ -50,14 +51,14 @@ int main(void)
 	input();
 	InitGen();
 
-	Process = (PROCESS**)malloc((Machine+1) * sizeof(PROCESS*));//Process申请内存
+	Process = (PROCESS**)malloc((Machine + 1) * sizeof(PROCESS*));//Process申请内存
 	if (Process != NULL)
-		for (int i = 0; i < Machine; i++)
-			Process[i] = (PROCESS*)malloc((Element+1) * sizeof(PROCESS));
+		for (int i = 0; i < Machine+1; i++)
+			Process[i] = (PROCESS*)malloc((Element + 1) * sizeof(PROCESS));
 
 	BestProcess = (PROCESS**)malloc((Machine + 1) * sizeof(PROCESS*));//BestProcess申请内存
 	if (BestProcess != NULL)
-		for (int i = 0; i < Machine; i++)
+		for (int i = 0; i < Machine+1; i++)
 			BestProcess[i] = (PROCESS*)malloc((Element + 1) * sizeof(PROCESS));
 	
 	GENE *temporary = NULL;//临时空间
@@ -99,9 +100,15 @@ int main(void)
 			decode(&island[1][0]);
 			BestMakeSpan = island[1][0].makespan;
 		}*/
-		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\tBestMakeSpan:%d\n", age, island[0][0].makespan, island[1][0].makespan,BestMakeSpan);
+		printf("age:%d\tisland1.makespan:%d\tisland2.makespan:%d\tBestMakeSpan:%d", age, island[0][0].makespan, island[1][0].makespan,BestMakeSpan);
+		printf("Time %.3f\n", (double)clock() / 1000);
 		age++;
 	}
+	int sum_time=0;
+	for (int i = 0; i < ISLAND; i++)
+		for (int j = 0; j < MAXnum; j++)
+			sum_time += island[i][j].makespan;
+	printf("%lf\n", (double)sum_time / ISLAND / MAXnum);
 	output();
 	//animate();
 	for (int i = 0; i < Machine; i++)

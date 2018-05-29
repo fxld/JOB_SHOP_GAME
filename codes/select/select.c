@@ -3,10 +3,10 @@
 static GENE ** Offspring_allocator(int size_of_element[])
 {
 	GENE **temp = NULL;
-	temp = (GENE **)malloc((ISLAND+1) * sizeof( GENE *));
+	temp = (GENE **)malloc((ISLAND + 1) * sizeof(GENE *));
 	if (temp != NULL)
 	{
-		for (int i = 0; i < ISLAND; i++)
+		for (int i = 0; i < ISLAND+1; i++)
 			temp[i] = (GENE*)malloc((size_of_element[i] + 1) * sizeof(GENE));
 	}
 	return temp;
@@ -18,8 +18,8 @@ static int ** tournament_allocator(void)
 	temp = (int **)malloc((ISLAND + 1) * sizeof(int *));
 	if (temp != NULL)
 	{
-		for (int i = 0; i < ISLAND; i++)
-			temp[i] = (int*)malloc(( nelite_size + 1) * sizeof(int));
+		for (int i = 0; i < ISLAND+1; i++)
+			temp[i] = (int*)malloc((nelite_size + 1) * sizeof(int));
 	}
 	return temp;
 }
@@ -110,26 +110,46 @@ void select(GENE ***o1,GENE ***o2)//select(&offspring_eselect,&offspring_tselect
 	for (i=0;i<ISLAND;i++)
 		for (j = 0; j < max_operate_num; j++)
 		{
-			if (rand() <= TournamentRange)
+			//if (rand() <= TournamentRange)
 				(*o2)[i][j] = island[i][tournament[i][2 * j]].makespan <= island[i][tournament[i][2 * j + 1]].makespan ? island[i][tournament[i][2 * j]] : island[i][tournament[i][2 * j + 1]];
-			else
-				(*o2)[i][j] = island[i][tournament[i][2 * j]].makespan <= island[i][tournament[i][2 * j + 1]].makespan ? island[i][tournament[i][2 * j + 1]] : island[i][tournament[i][2 * j]];
+			//else
+			//	(*o2)[i][j] = island[i][tournament[i][2 * j]].makespan <= island[i][tournament[i][2 * j + 1]].makespan ? island[i][tournament[i][2 * j + 1]] : island[i][tournament[i][2 * j]];
 		}
 
 	for (i=0;i<ISLAND;i++)
 		for (j=max_operate_num; j < nelite_size; j++)
 		{
-			for (k = 0; k < TSIZE; k++)
+			/*
+			int find = 0;
+			while (find++<10)
+			{
+				randomize(&random_pair[0]);
+				decode(&random_pair[0]);
+				if (random_pair[0].makespan <= (int)(island[0][0].makespan*1.1))
+					break;
+			}
+			(*o2)[i][j] = random_pair[0];
+*/
+			
+			int min;
+			int find = 0;
+	here:		for (k = 0; k < TSIZE; k++)
 			{
 				randomize(&random_pair[k]);
 				decode(&random_pair[k]);
 			}
-			if (rand() <= TournamentRange)
+			min= random_pair[0].makespan <= random_pair[1].makespan ? random_pair[0].makespan : random_pair[1].makespan;
+			find++;
+			if (min > (int)(island[0][0].makespan*1.15)&&find<5)
+				goto here;
+			//if (rand() <= TournamentRange)
 				(*o2)[i][j] = random_pair[0].makespan <= random_pair[1].makespan ? random_pair[0] : random_pair[1];
-			else
-				(*o2)[i][j] = random_pair[0].makespan <= random_pair[1].makespan ? random_pair[1] : random_pair[0];
+			//else
+			//	(*o2)[i][j] = random_pair[0].makespan <= random_pair[1].makespan ? random_pair[1] : random_pair[0];
+			
 		}
 
 	free(tournament);
 	/**********TOURNAMENT SELECT END******************/
+
 }
